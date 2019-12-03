@@ -18,3 +18,6 @@ const bodyParser = require("body-parser");
 
 // Message to tell the developer that Express.js is now running.
 console.log(`Express server now running on port ${port}!`);
+
+// Directory to load when someone requests the route name.
+app.use(express.static("client/"));
