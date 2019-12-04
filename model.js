@@ -1,6 +1,7 @@
 const auth = require("./assets/auth.js");
 const mongoose = require("mongoose");
 const md5 = require("md5");
+let authenticated = -1;
 
 const options = {
   useNewUrlParser: true,
@@ -49,16 +50,20 @@ function checkLogin(username, password) {
       console.log(error.reason);
     } else {
       if (results.length === 0) {
-        console.log("Wrong username or password!");
+        updateAuthentication(false);
       } else if (results.length === 1) {
-        console.log("Successfully Logged In!");
+        updateAuthentication(true);
       } else {
-        console.log(
-          "We have two entries that match the username and password, this is a DB issue!"
-        );
+        updateAuthentication(-1);
       }
     }
   });
+
+  return authenticated;
+}
+
+function updateAuthentication(value) {
+  authenticated = value;
 }
 
 module.exports = {
