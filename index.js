@@ -31,10 +31,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 // app.post(path, callback [, callback ...])
-// note: using shorthand for request and response [i.e. req, res]
-app.post("/login", (req, res) => {
-  let requestUsername = req.body;
-  let requestPassword = req.body;
+app.post("/login", (request, response) => {
+  let requestUsername = request.body;
+  let requestPassword = request.body;
 
   console.log(requestUsername, requestPassword);
 
