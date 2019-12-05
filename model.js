@@ -37,7 +37,13 @@ let accountSchema = new Schema({
 
 let accountModel = new mongoose.model("accounts", accountSchema);
 
-function checkLogin(username, password) {
+// async function searchDB(searchCriteria) {
+//     return new Promise((resolve, reject) => {
+//         accountModel.find(searchCriteria, (error, results) => {});
+//     });
+// }
+
+async function checkLogin(username, password) {
   let hashedAndSaltedPassword = md5(password + auth.getSalt());
 
   let searchCriteria = {
@@ -45,21 +51,15 @@ function checkLogin(username, password) {
     password: hashedAndSaltedPassword
   };
 
-  accountModel.find(searchCriteria, (error, results) => {
-    if (error) {
-      console.log(error.reason);
-    } else {
-      if (results.length === 0) {
-        updateAuthentication(false);
-      } else if (results.length === 1) {
-        updateAuthentication(true);
-      } else {
-        updateAuthentication(-1);
+  let result = accountModel
+    .find(searchCriteria, (error, results) => {
+      if (error) {
+        console.log(error.reason);
       }
-    }
-  });
+    })
+    .exec();
 
-  return authenticated;
+  return result;
 }
 
 function updateAuthentication(value) {
