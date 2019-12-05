@@ -54,6 +54,8 @@
             password: CryptoJS.MD5(password).toString()
           };
 
+          console.log(loginData, password);
+
           //   $.post(url,[data],[callback],[type]);
           $.post("http://localhost:3000/login", loginData, data => {
             console.log(`The server has responded!`);

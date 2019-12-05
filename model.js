@@ -45,6 +45,7 @@ let accountModel = new mongoose.model("accounts", accountSchema);
 
 async function checkLogin(username, password) {
   let hashedAndSaltedPassword = md5(password + auth.getSalt());
+  console.log(hashedAndSaltedPassword);
 
   let searchCriteria = {
     username: username,

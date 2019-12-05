@@ -18,7 +18,7 @@ app.post("/login", (request, response) => {
 
   model.checkLogin(requestUsername, requestPassword).then(results => {
     console.log(results);
-    response.sendStatus(500);
+    response.sendStatus(200);
   });
 
   //response.sendStatus(200);
