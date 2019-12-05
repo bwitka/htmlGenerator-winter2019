@@ -16,7 +16,10 @@ app.post("/login", (request, response) => {
   let requestUsername = request.body.username;
   let requestPassword = request.body.password;
 
-  model.checkLogin(requestUsername, requestPassword);
+  model.checkLogin(requestUsername, requestPassword).then(results => {
+    console.log(results);
+    response.sendStatus(500);
+  });
 
-  response.sendStatus(200);
+  //response.sendStatus(200);
 });
