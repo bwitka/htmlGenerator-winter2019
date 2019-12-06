@@ -1,7 +1,8 @@
+// NOTE: (12/6/19) code was working (outputting password hash), then I copied and pasted in Eduardo's code. Now output is an empty array.
+
 const auth = require("./assets/auth.js");
 const mongoose = require("mongoose");
 const md5 = require("md5");
-let authenticated = -1;
 
 const options = {
   useNewUrlParser: true,
@@ -52,21 +53,38 @@ async function checkLogin(username, password) {
     password: hashedAndSaltedPassword
   };
 
-  let result = accountModel
-    .find(searchCriteria, (error, results) => {
-      if (error) {
-        console.log(error.reason);
-      }
-    })
-    .exec();
-
-  return result;
+  return accountModel.find(searchCriteria).exec();
 }
 
-function updateAuthentication(value) {
-  authenticated = value;
+async function createAccount(newAccount) {
+  //FIX
+  return checkLogin(newAccount.username, newAccount.password).then(results => {
+    console.log(results);
+
+    if (results.length >= 1) {
+      return null;
+    } else {
+      let account = new accountModel({
+        fname: newAccount.fname,
+        lname: newAccount.lname,
+        username: newAccount.username,
+        email: newAccount.email,
+        password: md5(newAccount.password + auth.getSalt()),
+        creationDate: new Date(),
+        lastLogin: new Date(),
+        projectID: Math.floor(Math.random() * 1000000 + 1)
+      });
+      // FIX
+      return account.save();
+    }
+  });
+
+  console.log(returnValue);
+
+  return returnValue;
 }
 
 module.exports = {
-  checkLogin: checkLogin
+  checkLogin: checkLogin,
+  createAccount: createAccount
 };
