@@ -1,5 +1,3 @@
-// NOTE: (12/6/19) code was working (outputting password hash), then I copied and pasted in Eduardo's code. Now output is an empty array.
-
 const model = require("./model.js");
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -24,9 +22,9 @@ app.post("/login", (request, response) => {
       console.log(requestUsername + "Inside of Promise");
 
       if (results.length === 1) {
-        response.sendStatus(200);
+        response.send({ success: 0 });
       } else {
-        response.sendStatus(404);
+        response.send({ success: 1 });
       }
     });
   } else if (request.body.type === "registration") {
@@ -34,14 +32,14 @@ app.post("/login", (request, response) => {
       .createAccount(request.body)
       .then(results => {
         if (results === null) {
-          response.sendStatus(500);
+          response.send({ success: 3 });
         } else {
-          response.sendStatus(200);
+          response.send({ success: 2 });
         }
       })
       .catch(error => {
         console.log(error);
-        response.sendStatus(404);
+        response.send({ success: 4 });
       });
   }
 });

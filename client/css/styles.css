@@ -1,0 +1,18 @@
+/* codepen link for styling inspiration: 
+https://codepen.io/colorlib/pen/rxddKy
+*/
+
+/* FONTS: */
+
+/* COLOR PALETTE: */
+
+/********** GLOBAL STYLES **********/
+body {
+  /* landing page background image: */
+  background: url(../images/background_image.jpg);
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-color: #464646;
+}

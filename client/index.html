@@ -1,13 +1,27 @@
 <!-- NOTE: (12/6/19) code was working (outputting password hash), then I copied and pasted in Eduardo's code. Now output is an empty array. -->
 
+<!-- website link for front end design:
+https://colorlib.com/wp/template/creative-login-form/ -->
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Welcome to the htmlGenerator App!</title>
-
+    <title>Tierras Altas Adventures | Welcome</title>
+    <!-- FAVICON -->
+    <link
+      rel="shortcut icon"
+      href="images/site_favicon.ico"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" type="text/css" href="css/styles.css" />
+    <!-- FONT AWESOME -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/fontawesome.min.css"
+    />
     <script
       src="https://code.jquery.com/jquery-3.4.1.min.js"
       integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
@@ -27,74 +41,70 @@
     ></script>
   </head>
   <body>
-    <h1>Login to Your Account</h1>
-    <p id="error"></p>
-    <form id="login">
-      <label for="username">Username:</label><br />
-      <input type="text" id="username" name="username" /><br />
-      <label for="password">Password:</label><br />
-      <input type="password" id="password" name="password" /><br />
-    </form>
+    <div class="login-page">
+      <header>
+        <img src="images/website_logo-2.png" alt="website logo" />
+      </header>
+      <main>
+        <div class="form">
+          <!--LOGIN FORM-->
+          <form id="login-form">
+            <p id="login-message"></p>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              placeholder="username"
+            />
+            <input
+              type="password"
+              id="password"
+              name="password"
+              placeholder="password"
+            />
+            <button id="submitLogin">Login</button>
+            <p class="message">
+              Don't have an account? <a href="#">Click here to create one</a>
+            </p>
+          </form>
 
-    <input type="reset" form="login" />
-    <button id="submitLogin">Login</button>
-
-    <h1>Register A New Account</h1>
-    <p id="register-error"></p>
-    <form id="register">
-      <label for="fname">First Name:</label><br />
-      <input type="text" id="fname" name="fname" /><br />
-      <label for="lname">Last Name:</label><br />
-      <input type="text" id="lname" name="lname" /><br />
-      <label for="username-register">Username:</label><br />
-      <input type="text" id="username-register" name="username" /><br />
-      <label for="email">Email:</label><br />
-      <input type="email" id="email" name="email" /><br />
-      <label for="password-register">Password:</label><br />
-      <input type="password" id="password-register" name="password" /><br />
-    </form>
-
-    <input type="reset" form="register" />
-    <button id="submitRegister">Login</button>
-
-    <script>
-      $(document).ready(() => {
-        //console.log( ( CryptoJS.MD5("hello") ).toString() );
-        $("#submitLogin").click(() => {
-          let username = $("#username").val();
-          let password = $("#password").val();
-
-          if (username === "" || username === " ") {
-            $("#error").text("Please type in a username!");
-          }
-          if (password === "" || password === " ") {
-            $("#error").text("Please type in a password!");
-          }
-          // Structure of login package
-          const loginData = {
-            type: "login",
-            username: username,
-            password: CryptoJS.MD5(password).toString()
-          };
-          console.log(loginData.password);
-          $.post("http://localhost:3000/login", loginData, data => {
-            console.log("The server has responded!");
-          });
-        });
-        $("#submitRegister").click(() => {
-          const registerData = {
-            type: "registration",
-            fname: $("#fname").val(),
-            lname: $("#lname").val(),
-            username: $("#username-register").val(),
-            email: $("#email").val(),
-            password: CryptoJS.MD5($("#password-register").val()).toString()
-          };
-          $.post("/login", registerData, data => {
-            console.log("The server has responded");
-          });
-        });
-      });
-    </script>
+          <!--REGISTRATION FORM-->
+          <form id="register-form">
+            <p id="register-message"></p>
+            <input
+              type="text"
+              id="fname"
+              name="fname"
+              placeholder="first name"
+            />
+            <input
+              type="text"
+              id="lname"
+              name="lname"
+              placeholder="last name"
+            />
+            <input
+              type="text"
+              id="username-register"
+              name="username"
+              placeholder="username"
+            />
+            <input type="email" id="email" name="email" placeholder="email" />
+            <input
+              type="password"
+              id="password-register"
+              name="password"
+              placeholder="password"
+            />
+            <button id="submitRegister">Register</button>
+            <p>Already registered? <a href="#">Click here to sign in</a></p>
+          </form>
+        </div>
+      </main>
+      <footer>
+        <p>&copy;2019 Tierras Altas Adventures Inc. All rights reserved.</p>
+      </footer>
+    </div>
+    <script src="js/scripts.js"></script>
   </body>
 </html>
