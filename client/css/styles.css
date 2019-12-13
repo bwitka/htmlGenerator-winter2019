@@ -84,8 +84,8 @@ main {
   margin-top: -5px;
 }
 
-#login-form,
-#register-form {
+#login,
+#register {
   background: #e6e6e6;
   border-radius: 5px;
   width: 160px;
